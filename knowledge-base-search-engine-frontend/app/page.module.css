@@ -1,0 +1,58 @@
+.main {
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, var(--foreground), var(--text-secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
+}
+
+.uploadSection {
+  margin-bottom: 2rem;
+}
+
+.inputSection {
+  position: sticky;
+  bottom: 2rem;
+  margin-top: auto;
+  z-index: 10;
+}
+
+/* Ensure sticky input works well on small screens */
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .main {
+    padding: 2rem 1rem;
+  }
+}
