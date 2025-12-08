@@ -14,7 +14,8 @@
   min-height: 250px;
 }
 
-.container:hover, .dragActive {
+.container:hover,
+.dragActive {
   border-color: var(--primary);
   background-color: rgba(0, 112, 243, 0.03);
 }
@@ -80,4 +81,25 @@
 
 .removeButton:hover {
   background-color: rgba(255, 68, 68, 0.1);
+}
+
+.uploadButton {
+  background-color: var(--primary, #0070f3);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius, 4px);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: opacity 0.2s;
+}
+
+.uploadButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.uploadButton:hover:not(:disabled) {
+  opacity: 0.9;
 }

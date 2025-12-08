@@ -3,7 +3,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.css";
 
-export default function QuestionInput() {
+interface QuestionInputProps {
+  onSubmit: (question: string) => void;
+  loading?: boolean;
+}
+
+export default function QuestionInput({
+  onSubmit,
+  loading,
+}: QuestionInputProps) {
   const [question, setQuestion] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -17,10 +25,9 @@ export default function QuestionInput() {
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!question.trim()) return;
+    if (!question.trim() || loading) return;
 
-    console.log("Question submitted:", question);
-    // Add logic here to send to backend
+    onSubmit(question);
     setQuestion("");
   };
 
@@ -42,11 +49,12 @@ export default function QuestionInput() {
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
           rows={1}
+          disabled={loading}
         />
         <button
           type="submit"
           className={styles.sendButton}
-          disabled={!question.trim()}
+          disabled={!question.trim() || loading}
           aria-label="Send question"
         >
           <svg

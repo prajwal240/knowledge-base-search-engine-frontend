@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 
 export default function FileUpload() {
   const [dragActive, setDragActive] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,6 +45,35 @@ export default function FileUpload() {
 
   const removeFile = (idx: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleUpload = async () => {
+    if (files.length === 0) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    try {
+      const response = await fetch("http://localhost:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      alert("Files uploaded successfully!");
+      setFiles([]);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      alert("Failed to upload files. Please try again.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -99,6 +129,13 @@ export default function FileUpload() {
               </button>
             </div>
           ))}
+          <button
+            className={styles.uploadButton}
+            onClick={handleUpload}
+            disabled={uploading}
+          >
+            {uploading ? "Uploading..." : "Upload Files"}
+          </button>
         </div>
       )}
     </div>
